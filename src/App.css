@@ -215,6 +215,100 @@ body {
 	color: var(--color-muted);
 }
 
+/* ---------- Korak 3: vještine ---------- */
+
+/* Naslov iznad grupe checkboxova (nije <label>, jer grupa nema jedan input) */
+.field-label {
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+.skills-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 8px;
+}
+
+.skill-option {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 12px;
+	border: 1px solid var(--color-border);
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 0.95rem;
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.skill-option:hover {
+	border-color: var(--color-primary);
+}
+
+/* Označena vještina: :has() gleda da li je checkbox unutra štikliran */
+.skill-option:has(input:checked) {
+	border-color: var(--color-primary);
+	background: rgba(59, 91, 219, 0.08);
+}
+
+.skill-option input {
+	accent-color: var(--color-primary);
+	margin: 0;
+}
+
+.step-section {
+	margin-top: 20px;
+}
+
+.field textarea {
+	font: inherit;
+	padding: 10px 12px;
+	border: 1px solid var(--color-border);
+	border-radius: 8px;
+	resize: vertical;
+	transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field textarea:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
+}
+
+.field textarea.input-error {
+	border-color: var(--color-error);
+	background: var(--color-error-bg);
+}
+
+.word-count {
+	text-align: right;
+}
+
+/* Input sa tekstom "EUR / month" sa desne strane */
+.input-suffix {
+	display: flex;
+}
+
+.input-suffix input {
+	flex: 1;
+	min-width: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.suffix {
+	display: flex;
+	align-items: center;
+	padding: 0 12px;
+	font-size: 0.85rem;
+	color: var(--color-muted);
+	background: var(--color-bg);
+	border: 1px solid var(--color-border);
+	border-left: none;
+	border-radius: 0 8px 8px 0;
+	white-space: nowrap;
+}
+
 /* ---------- Veći ekrani ---------- */
 
 @media (min-width: 600px) {
@@ -224,6 +318,10 @@ body {
 
 	.form-grid {
 		grid-template-columns: 1fr 1fr;
+	}
+
+	.skills-grid {
+		grid-template-columns: repeat(3, 1fr);
 	}
 
 	/* Polje preko obje kolone */

@@ -2,6 +2,7 @@ import "./App.css";
 import { useFieldArray, useForm } from "react-hook-form";
 import StepPersonal from "./components/StepPersonal";
 import StepExperience from "./components/StepExperience";
+import StepSkills from "./components/StepSkills";
 
 function App() {
 	const {
@@ -12,7 +13,6 @@ function App() {
 	} = useForm({ mode: "onBlur" });
 
 	const { fields, append, remove } = useFieldArray({ control, name: "jobs" });
-	console.log(fields);
 	return (
 		<main className="page">
 			<div className="card">
@@ -31,6 +31,8 @@ function App() {
 						append={append}
 						remove={remove}
 					/>
+					{/* TODO: proslijedi props */}
+					<StepSkills register={register} errors={errors}/>
 
 					<div className="form-actions">
 						<button type="button" className="btn btn-primary">

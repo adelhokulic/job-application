@@ -56,3 +56,22 @@ export const dateFromValidator = {
 };
 export const toAfterFrom = (to, from) =>
 	to === "" || to > from || "End date must be after start date";
+
+export const skillsValidator = {
+	validate: (skills) =>
+		skills.length >= 3 ? true : "Choose at least 3 skills",
+};
+export const numberValidator = {
+	valueAsNumber: true,
+	min: { value: 0, message: "Value cannot be negative" },
+};
+export const coverLetterValidator = {
+	required: "Cover letter is required",
+	setValueAs: valueTrim,
+	validate: (value) => {
+		const numOfWords = value.split(/\s+/);
+		return numOfWords.length >= 50
+			? true
+			: "Cover letter must have at least 50 words";
+	},
+};
