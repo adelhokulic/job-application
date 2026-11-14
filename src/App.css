@@ -1,38 +1,166 @@
-.App {
-  text-align: center;
+:root {
+	--color-bg: #f3f4f8;
+	--color-card: #ffffff;
+	--color-text: #1f2430;
+	--color-muted: #6b7280;
+	--color-border: #d6d9e0;
+	--color-primary: #3b5bdb;
+	--color-primary-hover: #2f4ac0;
+	--color-error: #d6336c;
+	--color-error-bg: #fff0f4;
+	--radius: 10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+	box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+	background: var(--color-bg);
+	color: var(--color-text);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* ---------- Raspored ---------- */
+
+.page {
+	min-height: 100vh;
+	padding: 24px 16px;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
 }
 
-.App-link {
-  color: #61dafb;
+.card {
+	width: 100%;
+	max-width: 720px;
+	background: var(--color-card);
+	border-radius: var(--radius);
+	box-shadow: 0 4px 24px rgba(31, 36, 48, 0.08);
+	padding: 24px 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card-header h1 {
+	margin: 0;
+	font-size: 1.5rem;
+}
+
+.subtitle {
+	margin: 4px 0 24px;
+	color: var(--color-muted);
+}
+
+/* ---------- Korak ---------- */
+
+.step {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.step-title {
+	font-size: 1.15rem;
+	font-weight: 600;
+	margin-bottom: 16px;
+	padding: 0;
+}
+
+/* Mobile first: jedna kolona */
+.form-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 16px;
+}
+
+/* ---------- Polje ---------- */
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.field label {
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+.optional {
+	font-weight: 400;
+	color: var(--color-muted);
+}
+
+.field input {
+	font: inherit;
+	padding: 10px 12px;
+	border: 1px solid var(--color-border);
+	border-radius: 8px;
+	background: #fff;
+	transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field input:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
+}
+
+/* Dodaje se na input kad polje ima grešku */
+.field input.input-error {
+	border-color: var(--color-error);
+	background: var(--color-error-bg);
+}
+
+.field input.input-error:focus {
+	box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.15);
+}
+
+.field-error {
+	margin: 0;
+	font-size: 0.85rem;
+	color: var(--color-error);
+}
+
+/* ---------- Dugmad ---------- */
+
+.form-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: 28px;
+}
+
+.btn {
+	font: inherit;
+	font-weight: 600;
+	padding: 10px 20px;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.btn-primary {
+	background: var(--color-primary);
+	color: #fff;
+}
+
+.btn-primary:hover {
+	background: var(--color-primary-hover);
+}
+
+/* ---------- Veći ekrani ---------- */
+
+@media (min-width: 600px) {
+	.card {
+		padding: 32px;
+	}
+
+	.form-grid {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	/* Polje preko obje kolone */
+	.field-full {
+		grid-column: 1 / -1;
+	}
 }
