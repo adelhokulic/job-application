@@ -42,3 +42,17 @@ export const linkedinValidator = {
 		value.startsWith("https://www.linkedin.com/") ||
 		"LinkedIn link must start with https://www.linkedin.com/",
 };
+
+export const companyValidator = {
+	setValueAs: valueTrim,
+	required: "Company is required",
+};
+export const positionValidator = {
+	setValueAs: valueTrim,
+	required: "Position is required",
+};
+export const dateFromValidator = {
+	required: "Date from is required",
+};
+export const toAfterFrom = (to, from) =>
+	to === "" || to > from || "End date must be after start date";
