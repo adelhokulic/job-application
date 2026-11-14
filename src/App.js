@@ -3,6 +3,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import StepPersonal from "./components/StepPersonal";
 import StepExperience from "./components/StepExperience";
 import StepSkills from "./components/StepSkills";
+import ProgressBar from "./components/ProgressBar";
+import { useState } from "react";
 
 function App() {
 	const {
@@ -11,7 +13,7 @@ function App() {
 		control,
 		formState: { errors },
 	} = useForm({ mode: "onBlur" });
-
+	const [step, setStep] = useState(1);
 	const { fields, append, remove } = useFieldArray({ control, name: "jobs" });
 	return (
 		<main className="page">
@@ -21,23 +23,46 @@ function App() {
 					<p className="subtitle">Junior Frontend Developer</p>
 				</header>
 
+				<ProgressBar step={step} />
+
 				<form onSubmit={handleSubmit} className="form" noValidate>
-					<StepPersonal register={register} errors={errors} />
-					{/* TODO: privremeno su oba koraka prikazana jedan ispod drugog. Kasnije prikazuješ samo trenutni korak */}
-					<StepExperience
-						register={register}
-						errors={errors}
-						fields={fields}
-						append={append}
-						remove={remove}
-					/>
-					{/* TODO: proslijedi props */}
-					<StepSkills register={register} errors={errors}/>
+					{step === 1 && <StepPersonal register={register} errors={errors} />}
+					{step === 2 && (
+						<StepExperience
+							register={register}
+							errors={errors}
+							fields={fields}
+							append={append}
+							remove={remove}
+						/>
+					)}
+					{step === 3 && <StepSkills register={register} errors={errors} />}
 
 					<div className="form-actions">
-						<button type="button" className="btn btn-primary">
-							Next
-						</button>
+						{step !== 1 && (
+							<button
+								type="button"
+								className="btn btn-secondary"
+								onClick={() => setStep(step - 1)}
+							>
+								Back
+							</button>
+						)}
+						{step !== 4 && (
+							<button
+								type="button"
+								className="btn btn-primary"
+								onClick={() => setStep(step + 1)}
+							>
+								Next
+							</button>
+						)}
+
+						{step === 4 && (
+							<button type="submit" className="btn btn-primary">
+								Submit application
+							</button>
+						)}
 					</div>
 				</form>
 			</div>

@@ -309,6 +309,97 @@ body {
 	white-space: nowrap;
 }
 
+/* ---------- Navigacija ---------- */
+
+.btn-secondary {
+	background: #fff;
+	color: var(--color-text);
+	border-color: var(--color-border);
+	/* gura Back skroz lijevo, a Next/Submit ostaju desno */
+	margin-right: auto;
+}
+
+.btn-secondary:hover {
+	background: var(--color-bg);
+}
+
+/* ---------- Traka napretka ---------- */
+
+.progress {
+	position: relative;
+	margin-bottom: 28px;
+}
+
+/* Siva linija iza kružića, od centra prvog do centra zadnjeg */
+.progress-track {
+	position: absolute;
+	top: 15px;
+	left: 12.5%;
+	right: 12.5%;
+	height: 3px;
+	background: var(--color-border);
+	border-radius: 2px;
+}
+
+.progress-fill {
+	height: 100%;
+	background: var(--color-primary);
+	border-radius: 2px;
+	transition: width 0.3s ease;
+}
+
+.progress-steps {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.progress-step {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+}
+
+.progress-dot {
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	font-size: 0.85rem;
+	font-weight: 600;
+	background: #fff;
+	color: var(--color-muted);
+	border: 2px solid var(--color-border);
+	transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.progress-label {
+	font-size: 0.75rem;
+	color: var(--color-muted);
+}
+
+.progress-step.active .progress-dot {
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.progress-step.active .progress-label {
+	color: var(--color-text);
+	font-weight: 600;
+}
+
+.progress-step.done .progress-dot {
+	background: var(--color-primary);
+	border-color: var(--color-primary);
+	color: #fff;
+}
+
 /* ---------- Veći ekrani ---------- */
 
 @media (min-width: 600px) {
@@ -322,6 +413,10 @@ body {
 
 	.skills-grid {
 		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.progress-label {
+		font-size: 0.85rem;
 	}
 
 	/* Polje preko obje kolone */
