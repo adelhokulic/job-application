@@ -1,9 +1,10 @@
-const textValidator = {
-	noDigit: (value) => !/\d/.test(value) || "Input cannot contain numbers",
-};
-const valueTrim = (value) => value.trim();
-
-const validPhoneInputs = ["+387", "+381", "+385"];
+import {
+	countWords,
+	numberValidator,
+	textValidator,
+	toAfterFrom,
+	valueTrim,
+} from "./helpers";
 
 export const fullNameValidator = {
 	setValueAs: valueTrim,
@@ -19,11 +20,9 @@ export const emailValidator = {
 		message: "Please enter a valid email address",
 	},
 };
-export const cityValidator = {
-	setValueAs: valueTrim,
-	required: "City is required",
-	validate: textValidator,
-};
+
+const validPhoneInputs = ["+387", "+381", "+385"];
+
 export const phoneValidator = {
 	setValueAs: valueTrim,
 	required: "Phone is required",
@@ -35,6 +34,13 @@ export const phoneValidator = {
 		validPhoneInputs.some((validNum) => value.startsWith(validNum)) ||
 		"Phone must start with +381, +387 or +385",
 };
+
+export const cityValidator = {
+	setValueAs: valueTrim,
+	required: "City is required",
+	validate: textValidator,
+};
+
 export const linkedinValidator = {
 	setValueAs: valueTrim,
 	validate: (value) =>
@@ -47,37 +53,46 @@ export const companyValidator = {
 	setValueAs: valueTrim,
 	required: "Company is required",
 };
+
 export const positionValidator = {
 	setValueAs: valueTrim,
 	required: "Position is required",
 };
+
 export const dateFromValidator = {
 	required: "Date from is required",
 };
-export const toAfterFrom = (to, from) =>
-	to === "" || to > from || "End date must be after start date";
+
+export const dateToValidator = (index) => ({
+	validate: (value, formValues) =>
+		toAfterFrom(value, formValues.jobs[index].dateFrom),
+});
 
 export const skillsValidator = {
 	validate: (skills) =>
 		skills.length >= 3 ? true : "Choose at least 3 skills",
 };
-export const numberValidator = {
-	valueAsNumber: true,
-	min: { value: 0, message: "Value cannot be negative" },
+
+export const yearsOfExperienceValidator = {
+	...numberValidator,
+	required: "Years of experience are required",
 };
+
+export const expectedSalaryValidator = {
+	...numberValidator,
+	required: "Expected salary is required",
+};
+
 export const coverLetterValidator = {
-	required: "Cover letter is required",
 	setValueAs: valueTrim,
-	validate: (value) => {
-		const numOfWords = value.split(/\s+/);
-		return numOfWords.length >= 50
-			? true
-			: "Cover letter must have at least 50 words";
-	},
+	required: "Cover letter is required",
+	validate: (value) =>
+		countWords(value) >= 50 || "Cover letter must have at least 50 words",
 };
+
 export const cvFileValidator = {
-	required: "Please upload your CV",
 	validate: {
+		hasFile: (value) => !!value?.[0] || "Please upload your CV",
 		isPdf: (value) =>
 			value?.[0]?.type === "application/pdf" || "Please upload a PDF file",
 		maxSize: (value) =>

@@ -1,9 +1,11 @@
 import {
 	coverLetterValidator,
 	cvFileValidator,
-	numberValidator,
+	expectedSalaryValidator,
 	skillsValidator,
+	yearsOfExperienceValidator,
 } from "../validators/formValidator";
+import { countWords } from "../validators/helpers";
 
 const skills = [
 	"HTML",
@@ -19,9 +21,7 @@ const skills = [
 ];
 
 function StepSkills({ register, errors, watch }) {
-	const watchCoverletter = (watch("coverLetter") || "").trim();
-	const numOfWords =
-		watchCoverletter === "" ? 0 : watchCoverletter.split(/\s+/).length;
+	const numOfWords = countWords(watch("coverLetter") || "");
 
 	const watchCvFile = watch("cvFile");
 	const cvFileName = watchCvFile?.[0]?.name || undefined;
@@ -62,10 +62,7 @@ function StepSkills({ register, errors, watch }) {
 						min="0"
 						placeholder="e.g. 2"
 						className={errors.yearsOfExperience ? "input-error" : ""}
-						{...register("yearsOfExperience", {
-							...numberValidator,
-							required: "Years of experience are required",
-						})}
+						{...register("yearsOfExperience", yearsOfExperienceValidator)}
 					/>
 					{errors.yearsOfExperience && (
 						<p className="field-error">{errors.yearsOfExperience.message}</p>
@@ -81,10 +78,7 @@ function StepSkills({ register, errors, watch }) {
 							min="0"
 							placeholder="e.g. 1500"
 							className={errors.expectedSalary ? "input-error" : ""}
-							{...register("expectedSalary", {
-								...numberValidator,
-								required: "Expected salary is required",
-							})}
+							{...register("expectedSalary", expectedSalaryValidator)}
 						/>
 						<span className="suffix">EUR / month</span>
 					</div>

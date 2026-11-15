@@ -1,8 +1,8 @@
 import {
 	companyValidator,
 	dateFromValidator,
+	dateToValidator,
 	positionValidator,
-	toAfterFrom,
 } from "../validators/formValidator";
 
 function StepExperience({ register, errors, fields, append, remove }) {
@@ -85,10 +85,7 @@ function StepExperience({ register, errors, fields, append, remove }) {
 									className={errors.jobs?.[index]?.dateTo ? "input-error" : ""}
 									id={`dateTo-${index}`}
 									type="date"
-									{...register(`jobs.${index}.dateTo`, {
-										validate: (value, formValues) =>
-											toAfterFrom(value, formValues.jobs[index].dateFrom),
-									})}
+									{...register(`jobs.${index}.dateTo`, dateToValidator(index))}
 								/>
 								<p className="field-hint">
 									Leave empty if this is your current job.
