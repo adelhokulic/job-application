@@ -23,6 +23,7 @@ function App() {
 		trigger,
 		getValues,
 		reset,
+		watch,
 	} = useForm({ mode: "onBlur" });
 
 	const [step, setStep] = useState(1);
@@ -72,7 +73,9 @@ function App() {
 									remove={remove}
 								/>
 							)}
-							{step === 3 && <StepSkills register={register} errors={errors} />}
+							{step === 3 && (
+								<StepSkills register={register} errors={errors} watch={watch} />
+							)}
 							{step === 4 && (
 								<StepReview data={getValues()} updateStep={updateStep} />
 							)}

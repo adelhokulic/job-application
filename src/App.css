@@ -282,6 +282,13 @@ body {
 
 .word-count {
 	text-align: right;
+	transition: color 0.2s;
+}
+
+/* Dodaje se kad je upisano 50 ili više riječi */
+.word-count.complete {
+	color: #2f9e44;
+	font-weight: 600;
 }
 
 /* Input sa tekstom "EUR / month" sa desne strane */

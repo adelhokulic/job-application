@@ -17,7 +17,11 @@ const skills = [
 	"Figma",
 ];
 
-function StepSkills({ register, errors }) {
+function StepSkills({ register, errors, watch }) {
+	const watchCoverletter = (watch("coverLetter") || "").trim();
+	const numOfWords =
+		watchCoverletter === "" ? 0 : watchCoverletter.split(/\s+/).length;
+
 	return (
 		<fieldset className="step">
 			<legend className="step-title">Skills & Expectations</legend>
@@ -95,8 +99,7 @@ function StepSkills({ register, errors }) {
 						{...register("coverLetter", coverLetterValidator)}
 						className={errors.coverLetter ? "input-error" : ""}
 					/>
-					{/* TODO: umjesto 0 prikaži koliko je riječi upisano (bonus) */}
-					<p className="field-hint word-count">0 / 50 words</p>
+					<p className="field-hint word-count">{numOfWords} / 50 words</p>
 					{errors.coverLetter && (
 						<p className="field-error">{errors.coverLetter.message}</p>
 					)}
