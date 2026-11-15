@@ -6,15 +6,27 @@ import StepSkills from "./components/StepSkills";
 import ProgressBar from "./components/ProgressBar";
 import { useState } from "react";
 
+const stepFields = {
+	1: ["fullName", "email", "phone", "city", "linkedin"],
+	2: ["jobs"],
+	3: ["skills", "yearsOfExperience", "expectedSalary", "coverLetter"],
+};
+
 function App() {
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors },
+		trigger,
 	} = useForm({ mode: "onBlur" });
+
 	const [step, setStep] = useState(1);
 	const { fields, append, remove } = useFieldArray({ control, name: "jobs" });
+	const nextStep = async () => {
+		const isValid = await trigger(stepFields[step]);
+		if (isValid) return setStep(step + 1);
+	};
 	return (
 		<main className="page">
 			<div className="card">
@@ -52,7 +64,7 @@ function App() {
 							<button
 								type="button"
 								className="btn btn-primary"
-								onClick={() => setStep(step + 1)}
+								onClick={nextStep}
 							>
 								Next
 							</button>
