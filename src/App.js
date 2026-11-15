@@ -6,7 +6,7 @@ import StepSkills from "./components/StepSkills";
 import ProgressBar from "./components/ProgressBar";
 import StepReview from "./components/StepReview";
 import SuccessMessage from "./components/SuccessMessage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const stepFields = {
 	1: ["fullName", "email", "phone", "city", "linkedin"],
@@ -24,7 +24,10 @@ function App() {
 		getValues,
 		reset,
 		watch,
-	} = useForm({ mode: "onBlur" });
+	} = useForm({
+		mode: "onBlur",
+		defaultValues: JSON.parse(localStorage.getItem("jobApplication")) || {},
+	});
 
 	const [step, setStep] = useState(1);
 	const { fields, append, remove } = useFieldArray({ control, name: "jobs" });
@@ -39,9 +42,17 @@ function App() {
 	};
 	const onSubmit = (data) => {
 		setSubmitedName(data.fullName);
-		reset();
+		reset({});
+		localStorage.removeItem("jobApplication");
 		setStep(1);
 	};
+	useEffect(() => {
+		const saveDataToLocalStorage = watch((values) => {
+			localStorage.setItem("jobApplication", JSON.stringify(values));
+		});
+
+		return () => saveDataToLocalStorage.unsubscribe();
+	}, [watch]);
 
 	return (
 		<main className="page">

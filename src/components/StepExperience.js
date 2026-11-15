@@ -78,7 +78,7 @@ function StepExperience({ register, errors, fields, append, remove }) {
 							</div>
 
 							<div className="field">
-								<label htmlFor="to-0">
+								<label htmlFor={`to-${index}`}>
 									To <span className="optional">(optional)</span>
 								</label>
 								<input
