@@ -527,6 +527,53 @@ body {
 	line-height: 1.5;
 }
 
+/* ---------- Poruka o uspjehu ---------- */
+
+.success {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 24px 0 8px;
+}
+
+.success-icon {
+	width: 64px;
+	height: 64px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	font-size: 2rem;
+	font-weight: 700;
+	color: #fff;
+	background: #2f9e44;
+	animation: success-pop 0.4s ease-out;
+}
+
+@keyframes success-pop {
+	from {
+		transform: scale(0.5);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.success-title {
+	margin: 16px 0 8px;
+	font-size: 1.3rem;
+}
+
+.success-text {
+	margin: 0 0 24px;
+	max-width: 420px;
+	color: var(--color-muted);
+	line-height: 1.5;
+}
+
 /* ---------- Veći ekrani ---------- */
 
 @media (min-width: 600px) {
