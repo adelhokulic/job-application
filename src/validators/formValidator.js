@@ -25,7 +25,7 @@ const validPhoneInputs = ["+387", "+381", "+385"];
 
 export const phoneValidator = {
 	setValueAs: valueTrim,
-	required: "Phone is required",
+	required: "Phone number is required",
 	pattern: {
 		value: /^\+?[\d\s]+$/,
 		message: "Phone can contain only numbers",
