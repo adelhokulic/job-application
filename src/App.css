@@ -400,6 +400,133 @@ body {
 	color: #fff;
 }
 
+/* ---------- Korak 4: pregled ---------- */
+
+.review-section {
+	padding: 16px 0;
+	border-bottom: 1px solid var(--color-border);
+}
+
+.review-section:last-child {
+	border-bottom: none;
+}
+
+.review-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.review-header h3 {
+	margin: 0;
+	font-size: 1rem;
+}
+
+.btn-link {
+	font: inherit;
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: var(--color-primary);
+	background: none;
+	border: none;
+	padding: 4px 8px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn-link:hover {
+	background: rgba(59, 91, 219, 0.08);
+}
+
+/* Na telefonu: naziv iznad vrijednosti */
+.review-list {
+	display: grid;
+	grid-template-columns: 1fr;
+	margin: 0;
+}
+
+.review-list dt {
+	font-size: 0.8rem;
+	color: var(--color-muted);
+	margin-top: 8px;
+}
+
+.review-list dd {
+	margin: 2px 0 0;
+	overflow-wrap: anywhere;
+}
+
+.review-jobs {
+	list-style: none;
+	margin: 0 0 12px;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.review-job {
+	padding: 10px 12px;
+	background: var(--color-bg);
+	border-radius: 8px;
+}
+
+/* display: block stavlja datume u novi red, a pozicija i firma ostaju zajedno */
+.review-dates {
+	display: block;
+	margin-top: 2px;
+	font-size: 0.85rem;
+	color: var(--color-muted);
+}
+
+.review-total {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px;
+	border: 1px solid var(--color-primary);
+	border-radius: 8px;
+	background: rgba(59, 91, 219, 0.06);
+}
+
+.review-total strong {
+	color: var(--color-primary);
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-bottom: 4px;
+}
+
+.tag {
+	padding: 4px 10px;
+	font-size: 0.85rem;
+	border-radius: 999px;
+	color: var(--color-primary);
+	background: rgba(59, 91, 219, 0.1);
+}
+
+.review-label {
+	margin: 12px 0 4px;
+	font-size: 0.8rem;
+	color: var(--color-muted);
+}
+
+.review-letter {
+	margin: 0;
+	padding: 12px;
+	background: var(--color-bg);
+	border-radius: 8px;
+	/* zadrži nove redove iz textarea */
+	white-space: pre-wrap;
+	/* lomi i dugačke riječi bez razmaka, da ne izađu iz okvira */
+	overflow-wrap: anywhere;
+	line-height: 1.5;
+}
+
 /* ---------- Veći ekrani ---------- */
 
 @media (min-width: 600px) {
@@ -417,6 +544,17 @@ body {
 
 	.progress-label {
 		font-size: 0.85rem;
+	}
+
+	/* Na većem ekranu: naziv lijevo, vrijednost desno */
+	.review-list {
+		grid-template-columns: 180px 1fr;
+		row-gap: 8px;
+	}
+
+	.review-list dt,
+	.review-list dd {
+		margin: 0;
 	}
 
 	/* Polje preko obje kolone */

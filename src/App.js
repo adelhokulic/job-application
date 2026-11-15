@@ -4,6 +4,7 @@ import StepPersonal from "./components/StepPersonal";
 import StepExperience from "./components/StepExperience";
 import StepSkills from "./components/StepSkills";
 import ProgressBar from "./components/ProgressBar";
+import StepReview from "./components/StepReview";
 import { useState } from "react";
 
 const stepFields = {
@@ -19,6 +20,7 @@ function App() {
 		control,
 		formState: { errors },
 		trigger,
+		getValues,
 	} = useForm({ mode: "onBlur" });
 
 	const [step, setStep] = useState(1);
@@ -26,6 +28,9 @@ function App() {
 	const nextStep = async () => {
 		const isValid = await trigger(stepFields[step]);
 		if (isValid) return setStep(step + 1);
+	};
+	const updateStep = (newStep) => {
+		setStep(newStep);
 	};
 	return (
 		<main className="page">
@@ -49,6 +54,9 @@ function App() {
 						/>
 					)}
 					{step === 3 && <StepSkills register={register} errors={errors} />}
+					{step === 4 && (
+						<StepReview data={getValues()} updateStep={updateStep} />
+					)}
 
 					<div className="form-actions">
 						{step !== 1 && (
