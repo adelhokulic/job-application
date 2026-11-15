@@ -102,6 +102,8 @@ function StepReview({ data, updateStep }) {
 					<dd>{data.yearsOfExperience}</dd>
 					<dt>Expected salary</dt>
 					<dd>{data.expectedSalary} EUR / month</dd>
+					<dt>CV</dt>
+					<dd>{data.cvFile?.[0]?.name}</dd>
 				</dl>
 
 				<p className="review-label">Cover letter</p>

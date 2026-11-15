@@ -1,5 +1,6 @@
 import {
 	coverLetterValidator,
+	cvFileValidator,
 	numberValidator,
 	skillsValidator,
 } from "../validators/formValidator";
@@ -22,6 +23,8 @@ function StepSkills({ register, errors, watch }) {
 	const numOfWords =
 		watchCoverletter === "" ? 0 : watchCoverletter.split(/\s+/).length;
 
+	const watchCvFile = watch("cvFile");
+	const cvFileName = watchCvFile?.[0]?.name || undefined;
 	return (
 		<fieldset className="step">
 			<legend className="step-title">Skills & Expectations</legend>
@@ -102,6 +105,34 @@ function StepSkills({ register, errors, watch }) {
 					<p className="field-hint word-count">{numOfWords} / 50 words</p>
 					{errors.coverLetter && (
 						<p className="field-error">{errors.coverLetter.message}</p>
+					)}
+				</div>
+
+				<div className="field field-full">
+					<span className="field-label">
+						CV <span className="optional">(PDF, max 2 MB)</span>
+					</span>
+					<input
+						id="cv"
+						type="file"
+						accept="application/pdf"
+						className="file-input"
+						{...register("cvFile", cvFileValidator)}
+					/>
+					<label
+						htmlFor="cv"
+						className={errors.cvFile ? "has-error file-drop" : "file-drop"}
+					>
+						<span className="file-drop-icon" aria-hidden="true">
+							📄
+						</span>
+						<span className="file-drop-title">
+							{cvFileName || "Click to upload your CV"}
+						</span>
+						<span className="file-drop-hint">PDF only, up to 2 MB</span>
+					</label>
+					{errors.cvFile && (
+						<p className="field-error">{errors.cvFile.message}</p>
 					)}
 				</div>
 			</div>

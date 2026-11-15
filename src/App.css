@@ -316,6 +316,56 @@ body {
 	white-space: nowrap;
 }
 
+/* ---------- Bonus: CV ---------- */
+
+/* Sakriven, ali i dalje dostupan tastaturi i čitačima ekrana */
+.file-input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	overflow: hidden;
+}
+
+.file-drop {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: 20px 16px;
+	text-align: center;
+	border: 2px dashed var(--color-border);
+	border-radius: var(--radius);
+	cursor: pointer;
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.file-drop:hover,
+.file-input:focus-visible + .file-drop {
+	border-color: var(--color-primary);
+	background: rgba(59, 91, 219, 0.04);
+}
+
+.file-drop.has-error {
+	border-color: var(--color-error);
+	background: var(--color-error-bg);
+}
+
+.file-drop-icon {
+	font-size: 1.6rem;
+}
+
+.file-drop-title {
+	font-weight: 600;
+	color: var(--color-primary);
+	word-break: break-all;
+}
+
+.file-drop-hint {
+	font-size: 0.8rem;
+	color: var(--color-muted);
+}
+
 /* ---------- Navigacija ---------- */
 
 .btn-secondary {

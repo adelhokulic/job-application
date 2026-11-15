@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 const stepFields = {
 	1: ["fullName", "email", "phone", "city", "linkedin"],
 	2: ["jobs"],
-	3: ["skills", "yearsOfExperience", "expectedSalary", "coverLetter"],
+	3: ["skills", "yearsOfExperience", "expectedSalary", "coverLetter", "cvFile"],
 };
 
 function App() {
@@ -48,7 +48,8 @@ function App() {
 	};
 	useEffect(() => {
 		const saveDataToLocalStorage = watch((values) => {
-			localStorage.setItem("jobApplication", JSON.stringify(values));
+			const { cvFile, ...rest } = values;
+			localStorage.setItem("jobApplication", JSON.stringify(rest));
 		});
 
 		return () => saveDataToLocalStorage.unsubscribe();

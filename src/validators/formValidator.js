@@ -75,3 +75,12 @@ export const coverLetterValidator = {
 			: "Cover letter must have at least 50 words";
 	},
 };
+export const cvFileValidator = {
+	required: "Please upload your CV",
+	validate: {
+		isPdf: (value) =>
+			value?.[0]?.type === "application/pdf" || "Please upload a PDF file",
+		maxSize: (value) =>
+			value?.[0]?.size <= 2 * 1024 * 1024 || "File cannot be over 2 MB",
+	},
+};
