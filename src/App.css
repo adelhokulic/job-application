@@ -20,8 +20,6 @@ body {
 	color: var(--color-text);
 }
 
-/* ---------- Raspored ---------- */
-
 .page {
 	min-height: 100vh;
 	padding: 24px 16px;
@@ -49,8 +47,6 @@ body {
 	color: var(--color-muted);
 }
 
-/* ---------- Korak ---------- */
-
 .step {
 	border: none;
 	padding: 0;
@@ -64,14 +60,11 @@ body {
 	padding: 0;
 }
 
-/* Mobile first: jedna kolona */
 .form-grid {
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 16px;
 }
-
-/* ---------- Polje ---------- */
 
 .field {
 	display: flex;
@@ -104,7 +97,6 @@ body {
 	box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.15);
 }
 
-/* Dodaje se na input kad polje ima grešku */
 .field input.input-error {
 	border-color: var(--color-error);
 	background: var(--color-error-bg);
@@ -119,8 +111,6 @@ body {
 	font-size: 0.85rem;
 	color: var(--color-error);
 }
-
-/* ---------- Dugmad ---------- */
 
 .form-actions {
 	display: flex;
@@ -146,13 +136,6 @@ body {
 
 .btn-primary:hover {
 	background: var(--color-primary-hover);
-}
-
-/* ---------- Korak 2: poslovi ---------- */
-
-/* Razmak između koraka dok su privremeno oba prikazana */
-.step + .step {
-	margin-top: 32px;
 }
 
 .empty-state {
@@ -215,9 +198,6 @@ body {
 	color: var(--color-muted);
 }
 
-/* ---------- Korak 3: vještine ---------- */
-
-/* Naslov iznad grupe checkboxova (nije <label>, jer grupa nema jedan input) */
 .field-label {
 	font-size: 0.9rem;
 	font-weight: 600;
@@ -245,7 +225,6 @@ body {
 	border-color: var(--color-primary);
 }
 
-/* Označena vještina: :has() gleda da li je checkbox unutra štikliran */
 .skill-option:has(input:checked) {
 	border-color: var(--color-primary);
 	background: rgba(59, 91, 219, 0.08);
@@ -285,13 +264,11 @@ body {
 	transition: color 0.2s;
 }
 
-/* Dodaje se kad je upisano 50 ili više riječi */
 .word-count.complete {
 	color: #2f9e44;
 	font-weight: 600;
 }
 
-/* Input sa tekstom "EUR / month" sa desne strane */
 .input-suffix {
 	display: flex;
 }
@@ -316,9 +293,6 @@ body {
 	white-space: nowrap;
 }
 
-/* ---------- Bonus: CV ---------- */
-
-/* Sakriven, ali i dalje dostupan tastaturi i čitačima ekrana */
 .file-input {
 	position: absolute;
 	width: 1px;
@@ -366,13 +340,10 @@ body {
 	color: var(--color-muted);
 }
 
-/* ---------- Navigacija ---------- */
-
 .btn-secondary {
 	background: #fff;
 	color: var(--color-text);
 	border-color: var(--color-border);
-	/* gura Back skroz lijevo, a Next/Submit ostaju desno */
 	margin-right: auto;
 }
 
@@ -380,14 +351,11 @@ body {
 	background: var(--color-bg);
 }
 
-/* ---------- Traka napretka ---------- */
-
 .progress {
 	position: relative;
 	margin-bottom: 28px;
 }
 
-/* Siva linija iza kružića, od centra prvog do centra zadnjeg */
 .progress-track {
 	position: absolute;
 	top: 15px;
@@ -457,8 +425,6 @@ body {
 	color: #fff;
 }
 
-/* ---------- Korak 4: pregled ---------- */
-
 .review-section {
 	padding: 16px 0;
 	border-bottom: 1px solid var(--color-border);
@@ -496,7 +462,6 @@ body {
 	background: rgba(59, 91, 219, 0.08);
 }
 
-/* Na telefonu: naziv iznad vrijednosti */
 .review-list {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -529,7 +494,6 @@ body {
 	border-radius: 8px;
 }
 
-/* display: block stavlja datume u novi red, a pozicija i firma ostaju zajedno */
 .review-dates {
 	display: block;
 	margin-top: 2px;
@@ -577,14 +541,10 @@ body {
 	padding: 12px;
 	background: var(--color-bg);
 	border-radius: 8px;
-	/* zadrži nove redove iz textarea */
 	white-space: pre-wrap;
-	/* lomi i dugačke riječi bez razmaka, da ne izađu iz okvira */
 	overflow-wrap: anywhere;
 	line-height: 1.5;
 }
-
-/* ---------- Poruka o uspjehu ---------- */
 
 .success {
 	display: flex;
@@ -631,8 +591,6 @@ body {
 	line-height: 1.5;
 }
 
-/* ---------- Veći ekrani ---------- */
-
 @media (min-width: 600px) {
 	.card {
 		padding: 32px;
@@ -650,7 +608,6 @@ body {
 		font-size: 0.85rem;
 	}
 
-	/* Na većem ekranu: naziv lijevo, vrijednost desno */
 	.review-list {
 		grid-template-columns: 180px 1fr;
 		row-gap: 8px;
@@ -661,7 +618,6 @@ body {
 		margin: 0;
 	}
 
-	/* Polje preko obje kolone */
 	.field-full {
 		grid-column: 1 / -1;
 	}
