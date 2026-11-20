@@ -1,4 +1,11 @@
 import {
+	ProgressBar as BsProgressBar,
+	Col,
+	Form,
+	InputGroup,
+	Row,
+} from "react-bootstrap";
+import {
 	coverLetterValidator,
 	cvFileValidator,
 	expectedSalaryValidator,
@@ -28,19 +35,20 @@ function StepSkills({ register, errors, watch }) {
 	return (
 		<fieldset className="step">
 			<legend className="step-title">Skills & Expectations</legend>
+			<p className="step-desc">Tell us what you work with and what you expect.</p>
 
-			<div className="field">
-				<span className="field-label">
+			<div className="mb-4">
+				<span className="form-label d-block">
 					Skills <span className="optional">(choose at least 3)</span>
 				</span>
 				<div className="skills-grid">
 					{skills.map((skill) => {
 						return (
 							<label key={skill} className="skill-option">
-								<input
-									className={errors.skills ? "input-error" : ""}
+								<Form.Check.Input
 									type="checkbox"
 									value={skill}
+									isInvalid={!!errors.skills}
 									{...register("skills", skillsValidator)}
 								/>
 								<span>{skill}</span>
@@ -49,61 +57,85 @@ function StepSkills({ register, errors, watch }) {
 					})}
 				</div>
 				{errors.skills && (
-					<p className="field-error">{errors.skills.message}</p>
+					<div className="invalid-feedback d-block">{errors.skills.message}</div>
 				)}
 			</div>
 
-			<div className="form-grid step-section">
-				<div className="field">
-					<label htmlFor="yearsOfExperience">Years of experience</label>
-					<input
-						id="yearsOfExperience"
-						type="number"
-						min="0"
-						placeholder="e.g. 2"
-						className={errors.yearsOfExperience ? "input-error" : ""}
-						{...register("yearsOfExperience", yearsOfExperienceValidator)}
-					/>
-					{errors.yearsOfExperience && (
-						<p className="field-error">{errors.yearsOfExperience.message}</p>
-					)}
-				</div>
-
-				<div className="field">
-					<label htmlFor="expectedSalary">Expected salary</label>
-					<div className="input-suffix">
-						<input
-							id="expectedSalary"
+			<Row className="g-3">
+				<Col md={6}>
+					<Form.Group controlId="yearsOfExperience">
+						<Form.Label>Years of experience</Form.Label>
+						<Form.Control
 							type="number"
 							min="0"
-							placeholder="e.g. 1500"
-							className={errors.expectedSalary ? "input-error" : ""}
-							{...register("expectedSalary", expectedSalaryValidator)}
+							placeholder="e.g. 2"
+							isInvalid={!!errors.yearsOfExperience}
+							{...register("yearsOfExperience", yearsOfExperienceValidator)}
 						/>
-						<span className="suffix">EUR / month</span>
-					</div>
-					{errors.expectedSalary && (
-						<p className="field-error">{errors.expectedSalary.message}</p>
-					)}
-				</div>
+						{errors.yearsOfExperience && (
+							<Form.Control.Feedback type="invalid">
+								{errors.yearsOfExperience.message}
+							</Form.Control.Feedback>
+						)}
+					</Form.Group>
+				</Col>
 
-				<div className="field field-full">
-					<label htmlFor="coverLetter">Cover letter</label>
-					<textarea
-						id="coverLetter"
-						rows="6"
-						placeholder="Tell us why you are a good fit for this role..."
-						{...register("coverLetter", coverLetterValidator)}
-						className={errors.coverLetter ? "input-error" : ""}
-					/>
-					<p className="field-hint word-count">{numOfWords} / 50 words</p>
-					{errors.coverLetter && (
-						<p className="field-error">{errors.coverLetter.message}</p>
-					)}
-				</div>
+				<Col md={6}>
+					<Form.Group controlId="expectedSalary">
+						<Form.Label>Expected salary</Form.Label>
+						<InputGroup hasValidation>
+							<Form.Control
+								type="number"
+								min="0"
+								placeholder="e.g. 1500"
+								isInvalid={!!errors.expectedSalary}
+								{...register("expectedSalary", expectedSalaryValidator)}
+							/>
+							<InputGroup.Text>EUR / month</InputGroup.Text>
+							{errors.expectedSalary && (
+								<Form.Control.Feedback type="invalid">
+									{errors.expectedSalary.message}
+								</Form.Control.Feedback>
+							)}
+						</InputGroup>
+					</Form.Group>
+				</Col>
 
-				<div className="field field-full">
-					<span className="field-label">
+				<Col xs={12}>
+					<Form.Group controlId="coverLetter">
+						<Form.Label>Cover letter</Form.Label>
+						<Form.Control
+							as="textarea"
+							rows={6}
+							placeholder="Tell us why you are a good fit for this role..."
+							isInvalid={!!errors.coverLetter}
+							{...register("coverLetter", coverLetterValidator)}
+						/>
+						<div className="word-meter">
+							<BsProgressBar
+								now={Math.min((numOfWords / 50) * 100, 100)}
+								variant={numOfWords >= 50 ? "success" : "primary"}
+								className="word-meter-bar"
+								aria-label="Cover letter word count"
+							/>
+							<span
+								className={
+									numOfWords >= 50 ? "word-count complete" : "word-count"
+								}
+							>
+								{numOfWords} / 50 words
+							</span>
+						</div>
+						{errors.coverLetter && (
+							<div className="invalid-feedback d-block">
+								{errors.coverLetter.message}
+							</div>
+						)}
+					</Form.Group>
+				</Col>
+
+				<Col xs={12}>
+					<span className="form-label d-block">
 						CV <span className="optional">(PDF, max 2 MB)</span>
 					</span>
 					<input
@@ -115,10 +147,16 @@ function StepSkills({ register, errors, watch }) {
 					/>
 					<label
 						htmlFor="cv"
-						className={errors.cvFile ? "has-error file-drop" : "file-drop"}
+						className={
+							errors.cvFile
+								? "file-drop has-error"
+								: cvFileName
+									? "file-drop has-file"
+									: "file-drop"
+						}
 					>
 						<span className="file-drop-icon" aria-hidden="true">
-							📄
+							{cvFileName ? "✓" : "↑"}
 						</span>
 						<span className="file-drop-title">
 							{cvFileName || "Click to upload your CV"}
@@ -126,10 +164,10 @@ function StepSkills({ register, errors, watch }) {
 						<span className="file-drop-hint">PDF only, up to 2 MB</span>
 					</label>
 					{errors.cvFile && (
-						<p className="field-error">{errors.cvFile.message}</p>
+						<div className="invalid-feedback d-block">{errors.cvFile.message}</div>
 					)}
-				</div>
-			</div>
+				</Col>
+			</Row>
 		</fieldset>
 	);
 }

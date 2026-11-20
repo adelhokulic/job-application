@@ -1,10 +1,13 @@
 # Job Application Form
 
-A multi-step job application form built with **React** and **React Hook Form**. The form checks every field, keeps unfinished applications in the browser, and ends with a review page before submitting.
+A multi-step job application form built with **React**, **React Hook Form** and **React-Bootstrap**. The form checks every field, keeps unfinished applications in the browser, and ends with a review page before submitting.
+
+The visual style (colors, spacing, rounded corners) matches my [CV portfolio](https://github.com/adelhokulic/cv-portfolio), where this project is featured.
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![React Hook Form](https://img.shields.io/badge/React_Hook_Form-7-EC5990?logo=reacthookform&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
+![React-Bootstrap](https://img.shields.io/badge/React--Bootstrap-2-7952B3?logo=bootstrap&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-Mobile_first-1572B6?logo=css3&logoColor=white)
 
 ---
@@ -42,9 +45,12 @@ A multi-step job application form built with **React** and **React Hook Form**. 
 ### Extras
 
 - **Saved progress:** the form is saved to `localStorage` on every change, so a page refresh doesn't lose any data.
-- **Progress bar:** shows completed steps, the current step and what's left.
+- **Step indicator:** numbered steps joined by a progress bar. Completed steps get a check mark, and the current step is highlighted.
 - **Total experience:** calculated on the review page from the job dates. A job without an end date counts up to today.
-- **Responsive layout:** built mobile first with CSS Grid and Flexbox.
+- **Word meter:** a small bar under the cover letter fills up and turns green at 50 words.
+- **CV upload area:** a custom drop zone that shows the selected file name and turns red on error.
+- **Smooth transitions:** each step fades in, and buttons and inputs react to hover and focus. Animations are turned off when the user prefers reduced motion.
+- **Responsive layout:** built mobile first with the Bootstrap grid. Skills show in 2, 3 or 5 columns depending on screen width.
 
 ---
 
@@ -52,7 +58,8 @@ A multi-step job application form built with **React** and **React Hook Form**. 
 
 - **React 19**: function components and hooks (`useState`, `useEffect`)
 - **React Hook Form**: `useForm`, `useFieldArray`, `trigger`, `watch`, `reset`
-- **CSS**: custom styles with no UI library, mobile first
+- **React-Bootstrap / Bootstrap 5.3**: `Card`, `Form`, `InputGroup`, `Row`/`Col`, `ProgressBar`, `Badge`, `Button`
+- **CSS**: Bootstrap CSS variables set to the portfolio color palette, plus custom styles for the step indicator, skills, upload area and animations
 - **Create React App**: project setup and build
 
 ---
@@ -61,10 +68,11 @@ A multi-step job application form built with **React** and **React Hook Form**. 
 
 ```
 src/
+├── index.js                # Entry point, imports Bootstrap CSS
 ├── App.js                  # Form setup, step navigation, submit, localStorage
-├── App.css                 # All styles
+├── App.css                 # Theme colors and custom styles
 ├── components/
-│   ├── ProgressBar.js      # Step indicator
+│   ├── ProgressBar.js      # Step indicator with Bootstrap ProgressBar
 │   ├── StepPersonal.js     # Step 1
 │   ├── StepExperience.js   # Step 2 (job list with useFieldArray)
 │   ├── StepSkills.js       # Step 3 (word counter, CV upload)
@@ -76,6 +84,8 @@ src/
 ```
 
 Validation rules live outside the components. Each field gets its own validator in `formValidator.js`, and shared logic sits in `helpers.js`, so components only handle markup.
+
+React Hook Form and React-Bootstrap work together through `register`: its result is spread onto `Form.Control`, and the `isInvalid` prop shows the error state.
 
 ---
 
@@ -108,6 +118,8 @@ npm run build
 - Validating file uploads by type and size
 - Saving form data in `localStorage` and restoring it on page load
 - Calculating values from form data (total experience) instead of storing them in state
+- Connecting React Hook Form with React-Bootstrap components
+- Theming Bootstrap with CSS variables so the project matches the rest of my portfolio
 
 ---
 

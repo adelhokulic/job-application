@@ -7,6 +7,7 @@ import ProgressBar from "./components/ProgressBar";
 import StepReview from "./components/StepReview";
 import SuccessMessage from "./components/SuccessMessage";
 import { useEffect, useState } from "react";
+import { Button, Card, Container, Form } from "react-bootstrap";
 
 const stepFields = {
 	1: ["fullName", "email", "phone", "city", "linkedin"],
@@ -57,71 +58,87 @@ function App() {
 
 	return (
 		<main className="page">
-			<div className="card">
-				<header className="card-header">
-					<h1>Job Application</h1>
-					<p className="subtitle">Junior Frontend Developer</p>
+			<Container className="app-container">
+				<header className="app-header">
+					<h1 className="app-title">Job Application</h1>
+					<p className="app-subtitle">
+						Tell us about yourself in four short steps.
+					</p>
 				</header>
 
 				{submitedName !== "" ? (
-					<SuccessMessage
-						fullName={submitedName}
-						setSubmitedName={setSubmitedName}
-					/>
+					<Card className="form-card">
+						<Card.Body className="form-card-body">
+							<SuccessMessage
+								fullName={submitedName}
+								setSubmitedName={setSubmitedName}
+							/>
+						</Card.Body>
+					</Card>
 				) : (
 					<>
 						<ProgressBar step={step} />
 
-						<form onSubmit={handleSubmit(onSubmit)} className="form" noValidate>
-							{step === 1 && (
-								<StepPersonal register={register} errors={errors} />
-							)}
-							{step === 2 && (
-								<StepExperience
-									register={register}
-									errors={errors}
-									fields={fields}
-									append={append}
-									remove={remove}
-								/>
-							)}
-							{step === 3 && (
-								<StepSkills register={register} errors={errors} watch={watch} />
-							)}
-							{step === 4 && (
-								<StepReview data={getValues()} updateStep={updateStep} />
-							)}
+						<Card className="form-card">
+							<Card.Body className="form-card-body">
+								<Form onSubmit={handleSubmit(onSubmit)} noValidate>
+									<div key={step} className="step-fade">
+										{step === 1 && (
+											<StepPersonal register={register} errors={errors} />
+										)}
+										{step === 2 && (
+											<StepExperience
+												register={register}
+												errors={errors}
+												fields={fields}
+												append={append}
+												remove={remove}
+											/>
+										)}
+										{step === 3 && (
+											<StepSkills
+												register={register}
+												errors={errors}
+												watch={watch}
+											/>
+										)}
+										{step === 4 && (
+											<StepReview data={getValues()} updateStep={updateStep} />
+										)}
+									</div>
 
-							<div className="form-actions">
-								{step !== 1 && (
-									<button
-										type="button"
-										className="btn btn-secondary"
-										onClick={() => setStep(step - 1)}
-									>
-										Back
-									</button>
-								)}
-								{step !== 4 && (
-									<button
-										type="button"
-										className="btn btn-primary"
-										onClick={nextStep}
-									>
-										Next
-									</button>
-								)}
-
-								{step === 4 && (
-									<button type="submit" className="btn btn-primary">
-										Submit application
-									</button>
-								)}
-							</div>
-						</form>
+									<div className="form-actions">
+										{step !== 1 && (
+											<Button
+												type="button"
+												variant="outline-secondary"
+												onClick={() => setStep(step - 1)}
+											>
+												Back
+											</Button>
+										)}
+										<span className="form-actions-count">Step {step} of 4</span>
+										{step !== 4 && (
+											<Button
+												type="button"
+												variant="primary"
+												onClick={nextStep}
+											>
+												Next
+											</Button>
+										)}
+										{step === 4 && (
+											<Button type="submit" variant="primary">
+												Submit application
+											</Button>
+										)}
+									</div>
+								</Form>
+							</Card.Body>
+						</Card>
 					</>
 				)}
-			</div>
+			</Container>
 		</main>
 	);
 }

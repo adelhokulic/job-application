@@ -1,3 +1,4 @@
+import { Col, Form, Row } from "react-bootstrap";
 import {
 	cityValidator,
 	emailValidator,
@@ -10,78 +11,96 @@ function StepPersonal({ register, errors }) {
 	return (
 		<fieldset className="step">
 			<legend className="step-title">Personal Information</legend>
+			<p className="step-desc">How can we reach you?</p>
 
-			<div className="form-grid">
-				<div className="field field-full">
-					<label htmlFor="fullName">Full Name</label>
-					<input
-						className={errors.fullName ? "input-error" : ""}
-						id="fullName"
-						type="text"
-						placeholder="e.g. John Smith"
-						{...register("fullName", fullNameValidator)}
-					/>
-					{errors.fullName && (
-						<p className="field-error">{errors.fullName.message}</p>
-					)}
-				</div>
+			<Row className="g-3">
+				<Col xs={12}>
+					<Form.Group controlId="fullName">
+						<Form.Label>Full Name</Form.Label>
+						<Form.Control
+							type="text"
+							placeholder="e.g. John Smith"
+							isInvalid={!!errors.fullName}
+							{...register("fullName", fullNameValidator)}
+						/>
+						{errors.fullName && (
+							<Form.Control.Feedback type="invalid">
+								{errors.fullName.message}
+							</Form.Control.Feedback>
+						)}
+					</Form.Group>
+				</Col>
 
-				<div className="field">
-					<label htmlFor="email">Email</label>
-					<input
-						className={errors.email ? "input-error" : ""}
-						id="email"
-						type="email"
-						placeholder="name@example.com"
-						{...register("email", emailValidator)}
-					/>
-					{errors.email && (
-						<p className="field-error">{errors.email.message}</p>
-					)}
-				</div>
+				<Col md={6}>
+					<Form.Group controlId="email">
+						<Form.Label>Email</Form.Label>
+						<Form.Control
+							type="email"
+							placeholder="name@example.com"
+							isInvalid={!!errors.email}
+							{...register("email", emailValidator)}
+						/>
+						{errors.email && (
+							<Form.Control.Feedback type="invalid">
+								{errors.email.message}
+							</Form.Control.Feedback>
+						)}
+					</Form.Group>
+				</Col>
 
-				<div className="field">
-					<label htmlFor="phone">Phone</label>
-					<input
-						className={errors.phone ? "input-error" : ""}
-						id="phone"
-						type="tel"
-						placeholder="+387 61 234 567"
-						{...register("phone", phoneValidator)}
-					/>
-					{errors.phone && (
-						<p className="field-error">{errors.phone.message}</p>
-					)}
-				</div>
+				<Col md={6}>
+					<Form.Group controlId="phone">
+						<Form.Label>Phone</Form.Label>
+						<Form.Control
+							type="tel"
+							placeholder="+387 61 234 567"
+							isInvalid={!!errors.phone}
+							{...register("phone", phoneValidator)}
+						/>
+						{errors.phone && (
+							<Form.Control.Feedback type="invalid">
+								{errors.phone.message}
+							</Form.Control.Feedback>
+						)}
+					</Form.Group>
+				</Col>
 
-				<div className="field">
-					<label htmlFor="city">City</label>
-					<input
-						className={errors.city ? "input-error" : ""}
-						id="city"
-						type="text"
-						placeholder="e.g. Sarajevo"
-						{...register("city", cityValidator)}
-					/>
-					{errors.city && <p className="field-error">{errors.city.message}</p>}
-				</div>
+				<Col md={6}>
+					<Form.Group controlId="city">
+						<Form.Label>City</Form.Label>
+						<Form.Control
+							type="text"
+							placeholder="e.g. Sarajevo"
+							isInvalid={!!errors.city}
+							{...register("city", cityValidator)}
+						/>
+						{errors.city && (
+							<Form.Control.Feedback type="invalid">
+								{errors.city.message}
+							</Form.Control.Feedback>
+						)}
+					</Form.Group>
+				</Col>
 
-				<div className="field">
-					<label htmlFor="linkedin">
-						LinkedIn <span className="optional">(optional)</span>
-					</label>
-					<input
-						className={errors.linkedin ? "input-error" : ""}
-						id="linkedin"
-						type="url"
-						placeholder="https://www.linkedin.com/in/..."
-						{...register("linkedin", linkedinValidator)}
-					/>
-					{errors.linkedin && (
-						<p className="field-error">{errors.linkedin.message}</p>
-					)}
-				</div>
-			</div>
+				<Col md={6}>
+					<Form.Group controlId="linkedin">
+						<Form.Label>
+							LinkedIn <span className="optional">(optional)</span>
+						</Form.Label>
+						<Form.Control
+							type="url"
+							placeholder="https://www.linkedin.com/in/..."
+							isInvalid={!!errors.linkedin}
+							{...register("linkedin", linkedinValidator)}
+						/>
+						{errors.linkedin && (
+							<Form.Control.Feedback type="invalid">
+								{errors.linkedin.message}
+							</Form.Control.Feedback>
+						)}
+					</Form.Group>
+				</Col>
+			</Row>
 		</fieldset>
 	);
 }

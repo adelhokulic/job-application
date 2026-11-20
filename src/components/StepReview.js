@@ -1,3 +1,5 @@
+import { Badge, Button } from "react-bootstrap";
+
 const workingYears = (job) => {
 	const dateTo = job.dateTo ? new Date(job.dateTo) : Date.now();
 	const dateFrom = new Date(job.dateFrom);
@@ -13,17 +15,20 @@ function StepReview({ data, updateStep }) {
 	return (
 		<div className="step">
 			<h2 className="step-title">Review your application</h2>
+			<p className="step-desc">Check your details before you submit.</p>
 
 			<section className="review-section">
 				<div className="review-header">
 					<h3>Personal Information</h3>
-					<button
+					<Button
 						type="button"
-						className="btn-link"
+						variant="link"
+						size="sm"
+						className="btn-edit"
 						onClick={() => updateStep(1)}
 					>
 						Edit
-					</button>
+					</Button>
 				</div>
 
 				<dl className="review-list">
@@ -43,13 +48,15 @@ function StepReview({ data, updateStep }) {
 			<section className="review-section">
 				<div className="review-header">
 					<h3>Work Experience</h3>
-					<button
+					<Button
 						type="button"
-						className="btn-link"
+						variant="link"
+						size="sm"
+						className="btn-edit"
 						onClick={() => updateStep(2)}
 					>
 						Edit
-					</button>
+					</Button>
 				</div>
 
 				{(data.jobs?.length === 0 || data.jobs === undefined) && (
@@ -60,7 +67,9 @@ function StepReview({ data, updateStep }) {
 					{data.jobs?.map((job, index) => {
 						return (
 							<li key={index} className="review-job">
-								<strong>{job.position}</strong> at {job.company}
+								<span>
+									<strong>{job.position}</strong> at {job.company}
+								</span>
 								<span className="review-dates">
 									{job.dateFrom} – {job.dateTo || "Present"}
 								</span>
@@ -78,21 +87,23 @@ function StepReview({ data, updateStep }) {
 			<section className="review-section">
 				<div className="review-header">
 					<h3>Skills & Expectations</h3>
-					<button
+					<Button
 						type="button"
-						className="btn-link"
+						variant="link"
+						size="sm"
+						className="btn-edit"
 						onClick={() => updateStep(3)}
 					>
 						Edit
-					</button>
+					</Button>
 				</div>
 
 				<div className="tags">
 					{data.skills.map((skill) => {
 						return (
-							<span key={skill} className="tag">
+							<Badge key={skill} pill bg="" className="tag">
 								{skill}
-							</span>
+							</Badge>
 						);
 					})}
 				</div>

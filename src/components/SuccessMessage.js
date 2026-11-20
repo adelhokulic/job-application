@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 function SuccessMessage({ fullName, setSubmitedName }) {
 	return (
 		<div className="success" role="status">
@@ -9,13 +11,13 @@ function SuccessMessage({ fullName, setSubmitedName }) {
 				Thank you, {fullName}. We received your application and will get back to
 				you soon.
 			</p>
-			<button
+			<Button
 				type="button"
-				className="btn btn-primary"
+				variant="primary"
 				onClick={() => setSubmitedName("")}
 			>
 				Submit another application
-			</button>
+			</Button>
 		</div>
 	);
 }

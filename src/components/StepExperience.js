@@ -1,3 +1,4 @@
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import {
 	companyValidator,
 	dateFromValidator,
@@ -9,107 +10,115 @@ function StepExperience({ register, errors, fields, append, remove }) {
 	return (
 		<fieldset className="step">
 			<legend className="step-title">Work Experience</legend>
+			<p className="step-desc">Add your previous jobs, starting with the latest.</p>
+
 			{fields.length === 0 && <p className="empty-state">No jobs added yet.</p>}
 
 			{fields.map((field, index) => {
 				return (
-					<div key={field.id} className="job-card">
-						<div className="job-card-header">
-							<h3 className="job-card-title">Job #{index + 1}</h3>
-							<button
-								onClick={() => remove(index)}
-								type="button"
-								className="btn-remove"
-							>
-								Remove
-							</button>
-						</div>
-
-						<div className="form-grid">
-							<div className="field">
-								<label htmlFor={`company-${index}`}>Company</label>
-								<input
-									className={errors.jobs?.[index]?.company ? "input-error" : ""}
-									{...register(`jobs.${index}.company`, companyValidator)}
-									id={`company-${index}`}
-									type="text"
-									placeholder="e.g. Acme Inc."
-								/>
-								{errors.jobs?.[index]?.company && (
-									<p className="field-error">
-										{errors.jobs[index].company?.message}
-									</p>
-								)}
+					<Card key={field.id} className="job-card">
+						<Card.Body>
+							<div className="job-card-header">
+								<h3 className="job-card-title">
+									<span className="job-card-number">{index + 1}</span>
+									Job #{index + 1}
+								</h3>
+								<Button
+									type="button"
+									variant="link"
+									size="sm"
+									className="btn-remove"
+									onClick={() => remove(index)}
+								>
+									Remove
+								</Button>
 							</div>
 
-							<div className="field">
-								<label htmlFor={`position-${index}`}>Position</label>
-								<input
-									className={
-										errors.jobs?.[index]?.position ? "input-error" : ""
-									}
-									{...register(`jobs.${index}.position`, positionValidator)}
-									id={`position-${index}`}
-									type="text"
-									placeholder="e.g. Frontend Intern"
-								/>
-								{errors.jobs?.[index]?.position && (
-									<p className="field-error">
-										{errors.jobs[index].position?.message}
-									</p>
-								)}
-							</div>
+							<Row className="g-3">
+								<Col md={6}>
+									<Form.Group controlId={`company-${index}`}>
+										<Form.Label>Company</Form.Label>
+										<Form.Control
+											type="text"
+											placeholder="e.g. Acme Inc."
+											isInvalid={!!errors.jobs?.[index]?.company}
+											{...register(`jobs.${index}.company`, companyValidator)}
+										/>
+										{errors.jobs?.[index]?.company && (
+											<Form.Control.Feedback type="invalid">
+												{errors.jobs[index].company?.message}
+											</Form.Control.Feedback>
+										)}
+									</Form.Group>
+								</Col>
 
-							<div className="field">
-								<label htmlFor={`dateFrom-${index}`}>From</label>
-								<input
-									className={
-										errors.jobs?.[index]?.dateFrom ? "input-error" : ""
-									}
-									id={`dateFrom-${index}`}
-									type="date"
-									{...register(`jobs.${index}.dateFrom`, dateFromValidator)}
-								/>
-								{errors.jobs?.[index]?.dateFrom && (
-									<p className="field-error">
-										{errors.jobs[index].dateFrom?.message}
-									</p>
-								)}
-							</div>
+								<Col md={6}>
+									<Form.Group controlId={`position-${index}`}>
+										<Form.Label>Position</Form.Label>
+										<Form.Control
+											type="text"
+											placeholder="e.g. Frontend Intern"
+											isInvalid={!!errors.jobs?.[index]?.position}
+											{...register(`jobs.${index}.position`, positionValidator)}
+										/>
+										{errors.jobs?.[index]?.position && (
+											<Form.Control.Feedback type="invalid">
+												{errors.jobs[index].position?.message}
+											</Form.Control.Feedback>
+										)}
+									</Form.Group>
+								</Col>
 
-							<div className="field">
-								<label htmlFor={`dateTo-${index}`}>
-									To <span className="optional">(optional)</span>
-								</label>
-								<input
-									className={errors.jobs?.[index]?.dateTo ? "input-error" : ""}
-									id={`dateTo-${index}`}
-									type="date"
-									{...register(`jobs.${index}.dateTo`, dateToValidator(index))}
-								/>
-								<p className="field-hint">
-									Leave empty if this is your current job.
-								</p>
-								{errors.jobs?.[index]?.dateTo && (
-									<p className="field-error">
-										{errors.jobs[index].dateTo?.message}
-									</p>
-								)}
-							</div>
-						</div>
-					</div>
+								<Col md={6}>
+									<Form.Group controlId={`dateFrom-${index}`}>
+										<Form.Label>From</Form.Label>
+										<Form.Control
+											type="date"
+											isInvalid={!!errors.jobs?.[index]?.dateFrom}
+											{...register(`jobs.${index}.dateFrom`, dateFromValidator)}
+										/>
+										{errors.jobs?.[index]?.dateFrom && (
+											<Form.Control.Feedback type="invalid">
+												{errors.jobs[index].dateFrom?.message}
+											</Form.Control.Feedback>
+										)}
+									</Form.Group>
+								</Col>
+
+								<Col md={6}>
+									<Form.Group controlId={`dateTo-${index}`}>
+										<Form.Label>
+											To <span className="optional">(optional)</span>
+										</Form.Label>
+										<Form.Control
+											type="date"
+											isInvalid={!!errors.jobs?.[index]?.dateTo}
+											{...register(`jobs.${index}.dateTo`, dateToValidator(index))}
+										/>
+										<Form.Text>Leave empty if this is your current job.</Form.Text>
+										{errors.jobs?.[index]?.dateTo && (
+											<Form.Control.Feedback type="invalid">
+												{errors.jobs[index].dateTo?.message}
+											</Form.Control.Feedback>
+										)}
+									</Form.Group>
+								</Col>
+							</Row>
+						</Card.Body>
+					</Card>
 				);
 			})}
 
-			<button
+			<Button
 				type="button"
-				className="btn btn-add"
+				variant="outline-primary"
+				className="btn-add w-100"
 				onClick={() =>
 					append({ company: "", position: "", dateFrom: "", dateTo: "" })
 				}
 			>
 				+ Add job
-			</button>
+			</Button>
 		</fieldset>
 	);
 }

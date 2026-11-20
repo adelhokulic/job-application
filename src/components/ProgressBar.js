@@ -1,35 +1,40 @@
+import { ProgressBar as BsProgressBar } from "react-bootstrap";
+
 const steps = ["Personal", "Experience", "Skills", "Review"];
 
 function ProgressBar({ step }) {
 	return (
-		<div className="progress">
-			<div className="progress-track">
-				<div
-					className="progress-fill"
-					style={{ width: `${((step - 1) / 3) * 100}%` }}
+		<nav className="stepper" aria-label="Application progress">
+			<div className="stepper-track">
+				<BsProgressBar
+					now={((step - 1) / 3) * 100}
+					className="stepper-bar"
+					aria-label={`Step ${step} of 4`}
 				/>
 			</div>
 
-			<ol className="progress-steps">
+			<ol className="stepper-steps">
 				{steps.map((label, index) => {
 					return (
 						<li
 							key={label}
 							className={
 								step > index + 1
-									? "progress-step done"
+									? "stepper-step done"
 									: step === index + 1
-										? "progress-step active"
-										: "progress-step"
+										? "stepper-step active"
+										: "stepper-step"
 							}
 						>
-							<span className="progress-dot">{index + 1}</span>
-							<span className="progress-label">{label}</span>
+							<span className="stepper-dot">
+								{step > index + 1 ? "✓" : index + 1}
+							</span>
+							<span className="stepper-label">{label}</span>
 						</li>
 					);
 				})}
 			</ol>
-		</div>
+		</nav>
 	);
 }
 
